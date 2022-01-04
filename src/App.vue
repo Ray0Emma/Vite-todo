@@ -1,25 +1,23 @@
 <template>
-  <HelloWorld msg="Vue 3 TODO App" />
+  <ToDo />
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import ToDo from "./components/ToDo.vue";
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    ToDo,
   },
 };
 </script>
-<style>
+<style lang="postcss">
 body {
-  background-color: #9ca3af;
+  @apply bg-bleuby text-midnight;
 }
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 80px;
 }
 </style>

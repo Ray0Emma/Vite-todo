@@ -1,36 +1,31 @@
 <template>
-  <!-- <h1>{{ msg }}</h1> -->
   <div class="container-md">
-    <div class="p-6 max-w-md mx-auto bg-gray-200 rounded-xl shadow-lg">
-      <h1 class="text-lg font-semibold mb-3">
-        {{
-          new Date().toLocaleString("en-us", {
-            weekday: "long",
-            day: "numeric",
-            month: "short",
-          })
-        }}
+    <div class="p-8 max-w-md mx-auto bg-light rounded-xl shadow-lg">
+      <h1 class="text-lg font-semibold mb-2">
+        {{ date }}
       </h1>
-      <span class="text-cyan-600 font-base">{{ todos.length }} tasks</span>
+      <span class="text-bleuby font-medium">{{ todos.length }} tasks</span>
       <form @submit.prevent="addTodo()" class="mt-7 mb-7 flex justify-between">
         <input
-          class="border-2 border-cyan-600 outline-0 bg-slate-200"
+          class="border focus:border-bleuby border-midnight outline-0 w-96"
           v-model="newTodo"
           name="newTodo"
           autocomplete="off"
         />
-        <button class="ml-3">Add</button>
+        <button class="ml-3">
+          <img src="https://img.icons8.com/ios-glyphs/52/5C76E4/plus.png" />
+        </button>
       </form>
       <ul v-if="todos.length > 0">
         <li
           v-for="(todo, index) in todos"
           :key="index"
-          class="flex justify-between"
+          class="flex justify-between mb-3"
         >
           <div class="inline">
             <input
-              class="mr-2"
-              type="checkbox"
+              class="mr-2 w-5 h-5 inline-block align-text-bottom checked:text-red-100"
+              type="radio"
               :name="todo.content"
               :checked="todo.done"
               @click="doneTodo(todo)"
@@ -51,16 +46,21 @@
 import { ref } from "vue";
 
 export default {
-  // name: 'Todo',
+  name: "ToDo",
   setup() {
+    const date = new Date().toLocaleString("en-us", {
+      weekday: "long",
+      day: "numeric",
+      month: "short",
+    });
     const newTodo = ref("");
     const defaultData = [
       {
         done: false,
-        content: "Write a blog post",
+        content: "Morning walk",
       },
     ];
-    const todosData = JSON.parse(localStorage.getItem("todos")) || defaultData;
+    const todosData = JSON.parse(localStorage.getItem("tasks")) || defaultData;
     const todos = ref(todosData);
     function addTodo() {
       if (newTodo.value) {
@@ -82,9 +82,10 @@ export default {
     }
     function saveData() {
       const storageData = JSON.stringify(todos.value);
-      localStorage.setItem("todos", storageData);
+      localStorage.setItem("tasks", storageData);
     }
     return {
+      date,
       todos,
       newTodo,
       addTodo,
@@ -92,9 +93,6 @@ export default {
       removeTodo,
       saveData,
     };
-  },
-  props: {
-    msg: String,
   },
 };
 </script>
