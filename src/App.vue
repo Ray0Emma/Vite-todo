@@ -13,7 +13,7 @@ export default {
 </script>
 <style lang="postcss">
 body {
-  @apply bg-bleuby text-midnight;
+  @apply bg-bleuby text-light;
 }
 #app {
   -webkit-font-smoothing: antialiased;

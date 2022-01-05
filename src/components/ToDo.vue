@@ -1,22 +1,20 @@
 <template>
   <div class="container-md">
-    <div class="p-8 max-w-md mx-auto bg-light rounded-xl shadow-lg">
+    <div class="p-8 max-w-md mx-auto bg-dark rounded-xl shadow-lg">
       <h1 class="text-lg font-semibold mb-2">
         {{ date }}
       </h1>
       <span class="text-bleuby font-medium">{{ todos.length }} tasks</span>
       <form @submit.prevent="addTodo()" class="mt-7 mb-7 flex justify-between">
         <input
-          class="border focus:border-bleuby border-midnight outline-0 w-96"
+          class="border bg-input focus:border-bleuby border-border outline-0 w-96 py-2 px-5 rounded"
           v-model="newTodo"
           name="newTodo"
+          placeholder="Add a task..."
           autocomplete="off"
         />
-        <button class="ml-3">
-          <img src="https://img.icons8.com/ios-glyphs/52/5C76E4/plus.png" />
-        </button>
       </form>
-      <ul v-if="todos.length > 0">
+      <ul v-if="todos.length > 0" class="mb-3">
         <li
           v-for="(todo, index) in todos"
           :key="index"
@@ -24,8 +22,8 @@
         >
           <div class="inline">
             <input
-              class="mr-2 w-5 h-5 inline-block align-text-bottom checked:text-red-100"
-              type="radio"
+              class="mr-2 w-5 h-5 inline-block align-text-bottom"
+              type="checkbox"
               :name="todo.content"
               :checked="todo.done"
               @click="doneTodo(todo)"
@@ -34,10 +32,25 @@
               todo.content
             }}</label>
           </div>
-          <button @click="removeTodo(index)" class="text-end">Remove</button>
+          <button @click="removeTodo(index)" class="text-end">
+            <img src="https://img.icons8.com/ios-filled/20/5C76E4/trash.png" />
+          </button>
         </li>
       </ul>
-      <h4 v-else class="text-center">Empty list.</h4>
+      <h4 v-else class="text-center mb-5">No Tasks For Now.</h4>
+      <!-- <div v-if="completed.length > 0" class="mb-3">
+        <hr class="text-border" />
+        <li
+          v-for="(comp, index) in completed"
+          :key="index"
+          class="flex justify-between mb-3"
+        >
+          <label :for="comp.content" class="done">{{ comp.content }}</label>
+          <button @click="removeTodo(index)" class="text-end">
+            <img src="https://img.icons8.com/ios-filled/20/5C76E4/trash.png" />
+          </button>
+        </li>
+      </div> -->
     </div>
   </div>
 </template>
@@ -60,6 +73,7 @@ export default {
         content: "Morning walk",
       },
     ];
+    // const completed = ref([]);
     const todosData = JSON.parse(localStorage.getItem("tasks")) || defaultData;
     const todos = ref(todosData);
     function addTodo() {
@@ -74,10 +88,15 @@ export default {
     }
     function doneTodo(todo) {
       todo.done = !todo.done;
+      // completed.value.push({
+      //   done: true,
+      //   content: todo.content,
+      // });
       saveData();
     }
     function removeTodo(index) {
       todos.value.splice(index, 1);
+      // completed.value.splice(index, 1);
       saveData();
     }
     function saveData() {
@@ -86,6 +105,7 @@ export default {
     }
     return {
       date,
+      // completed,
       todos,
       newTodo,
       addTodo,
