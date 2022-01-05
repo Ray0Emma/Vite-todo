@@ -1,13 +1,15 @@
 <template>
   <div class="container-md">
-    <div class="p-8 max-w-md mx-auto bg-dark rounded-xl shadow-lg">
+    <div
+      class="p-7 sm:p-8 max-w-mobile md:max-w-lg mx-auto bg-dark rounded-xl shadow-lg"
+    >
       <h1 class="text-lg font-semibold mb-2">
         {{ date }}
       </h1>
       <span class="text-bleuby font-medium">{{ todos.length }} tasks</span>
-      <form @submit.prevent="addTodo()" class="mt-7 mb-7 flex justify-between">
+      <form @submit.prevent="addTodo()" class="mt-7 mb-7">
         <input
-          class="border bg-input focus:border-bleuby border-border outline-0 w-96 py-2 px-5 rounded"
+          class="border bg-input focus:border-bleuby border-border outline-0 w-full py-2 px-5 rounded"
           v-model="newTodo"
           name="newTodo"
           placeholder="Add a task..."
@@ -23,7 +25,7 @@
           <div class="inline">
             <input
               class="mr-2 w-5 h-5 inline-block align-text-bottom"
-              type="checkbox"
+              type="radio"
               :name="todo.content"
               :checked="todo.done"
               @click="doneTodo(todo)"
@@ -37,7 +39,7 @@
           </button>
         </li>
       </ul>
-      <h4 v-else class="text-center mb-5">No Tasks For Now.</h4>
+      <h4 v-else class="text-center mb-5">No Tasks To Do.</h4>
       <!-- <div v-if="completed.length > 0" class="mb-3">
         <hr class="text-border" />
         <li
@@ -120,5 +122,8 @@ export default {
 <style scoped>
 .done {
   text-decoration: line-through;
+}
+input[type="radio"] {
+  filter: invert(80%) saturate(0%);
 }
 </style>

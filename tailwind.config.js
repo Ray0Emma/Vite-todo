@@ -10,7 +10,12 @@ module.exports = {
       dark: "#3D434B",
       light: "#DCE0E3",
     },
-    extend: {},
+
+    extend: {
+      maxWidth: {
+        mobile: "19rem",
+      },
+    },
   },
   plugins: [],
 };
