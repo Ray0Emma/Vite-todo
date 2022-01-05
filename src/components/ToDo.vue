@@ -40,19 +40,6 @@
         </li>
       </ul>
       <h4 v-else class="text-center mb-5">No Tasks To Do.</h4>
-      <!-- <div v-if="completed.length > 0" class="mb-3">
-        <hr class="text-border" />
-        <li
-          v-for="(comp, index) in completed"
-          :key="index"
-          class="flex justify-between mb-3"
-        >
-          <label :for="comp.content" class="done">{{ comp.content }}</label>
-          <button @click="removeTodo(index)" class="text-end">
-            <img src="https://img.icons8.com/ios-filled/20/5C76E4/trash.png" />
-          </button>
-        </li>
-      </div> -->
     </div>
   </div>
 </template>
@@ -75,7 +62,6 @@ export default {
         content: "Morning walk",
       },
     ];
-    // const completed = ref([]);
     const todosData = JSON.parse(localStorage.getItem("tasks")) || defaultData;
     const todos = ref(todosData);
     function addTodo() {
@@ -90,15 +76,10 @@ export default {
     }
     function doneTodo(todo) {
       todo.done = !todo.done;
-      // completed.value.push({
-      //   done: true,
-      //   content: todo.content,
-      // });
       saveData();
     }
     function removeTodo(index) {
       todos.value.splice(index, 1);
-      // completed.value.splice(index, 1);
       saveData();
     }
     function saveData() {
@@ -107,7 +88,6 @@ export default {
     }
     return {
       date,
-      // completed,
       todos,
       newTodo,
       addTodo,
